@@ -10,6 +10,11 @@
     --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+/* ADDED FOR SMOOTH FLOW */
+html {
+    scroll-behavior: smooth;
+}
+
 /* --- 2. GLOBAL RESET & NUCLEAR BUTTON FIX --- */
 * { 
     margin: 0; 
@@ -17,10 +22,7 @@
     box-sizing: border-box; 
 }
 
-button, 
-.cta-bubble, 
-.btn-primary, 
-.btn-secondary {
+button, .cta-bubble, .btn-primary, .btn-secondary {
     all: unset;
     box-sizing: border-box;
     cursor: pointer;
@@ -52,11 +54,7 @@ body {
     position: fixed;
     width: 320px;
     height: 320px;
-    background: radial-gradient(
-        circle,
-        rgba(99, 102, 241, 0.15),
-        transparent 70%
-    );
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%);
     border-radius: 50%;
     pointer-events: none;
     z-index: 0;
@@ -89,7 +87,6 @@ body {
     position: relative;
 }
 
-/* --- ENHANCED LOGO --- */
 .logo {
     font-weight: 800;
     letter-spacing: 2px;
@@ -97,7 +94,6 @@ body {
     font-size: 1.1rem;
     color: #fff;
     cursor: pointer;
-    transition: var(--transition-smooth);
     text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
     animation: logoPulse 4s infinite ease-in-out;
 }
@@ -107,11 +103,22 @@ body {
     50% { opacity: 0.7; filter: drop-shadow(0 0 10px var(--primary)); }
 }
 
-.logo span {
-    color: var(--primary);
+.logo span { color: var(--primary); }
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
 }
 
-/* --- CENTER MENU --- */
+.bar {
+    width: 22px;
+    height: 2px;
+    background-color: #fff;
+    transition: var(--transition-smooth);
+}
+
 .nav-menu {
     position: absolute;
     left: 50%;
@@ -122,8 +129,6 @@ body {
 .nav-links {
     display: flex;
     list-style: none;
-    margin: 0;
-    padding: 0;
     width: 100%;
     justify-content: center;
 }
@@ -142,49 +147,10 @@ body {
     align-items: center;
     justify-content: center;
     transition: color 0.2s ease;
-    contain: layout; 
 }
 
-.nav-item:hover {
-    color: #ffffff;
-}
+.nav-item:hover { color: #ffffff; }
 
-.nav-item::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-        circle at var(--x, 50%) var(--y, 50%), 
-        rgba(255, 255, 255, 0.12) 0%, 
-        transparent 75%
-    );
-    border-radius: inherit;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-}
-
-.nav-item:hover::before { opacity: 1; }
-
-.nav-item::after {
-    content: '';
-    position: absolute;
-    bottom: 4px; 
-    left: 20px;
-    right: 20px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--primary), transparent);
-    transform: scaleX(0);
-    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    opacity: 0;
-}
-
-.nav-item:hover::after {
-    transform: scaleX(1);
-    opacity: 1;
-}
-
-/* --- LIQUID SHIMMER CTA --- */
 .cta-bubble {
     position: relative;
     background: linear-gradient(90deg, #ffffff, #f1f5f9, #ffffff) !important;
@@ -200,12 +166,6 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     text-align: center;
-}
-
-.cta-bubble:hover {
-    transform: translateY(-2px);
-    background-position: right center !important;
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
 }
 
 /* --- 5. HERO SECTION --- */
@@ -242,6 +202,7 @@ body {
     letter-spacing: 1.5px;
     text-transform: uppercase;
     margin-bottom: 2rem;
+    display: inline-block;
 }
 
 .title-stack h1 {
@@ -266,7 +227,6 @@ body {
     text-wrap: balance;
 }
 
-/* --- 6. HERO BUTTONS --- */
 .hero-btns {
     display: flex;
     gap: 1.2rem;
@@ -292,25 +252,136 @@ body {
     backdrop-filter: blur(10px);
 }
 
-.btn-primary:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(99, 102, 241, 0.4);
+/* --- 6. SCROLL DOWN INDICATOR (THE FIX) --- */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    /* Start at 50% left and 20px down for the reveal animation */
+    transform: translate(-50%, 20px); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 10;
+    opacity: 0; 
+    transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-/* --- 7. ANIMATIONS --- */
+/* This allows the centering and reveal to work together */
+.scroll-indicator.active {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.mouse {
+    width: 24px;
+    height: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    padding-top: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(4px);
+}
+
+.wheel {
+    width: 4px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--primary);
+    animation: scrollWheel 2s infinite ease-in-out;
+}
+
+.scroll-text {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--text-dim);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+@keyframes scrollWheel {
+    0% { transform: translateY(0); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translateY(16px); opacity: 0; }
+}
+
+/* --- 7. DYNAMIC SERVICES SECTION --- */
+.services-section {
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 50px;
+    font-weight: 800;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+@media (max-width: 1100px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-menu { display: none; }
+    .hamburger { display: flex; }
+}
+
+@media (max-width: 768px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .scroll-indicator { display: none; }
+}
+
+.service-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 50px 40px;
+    backdrop-filter: blur(15px);
+    transition: transform 0.15s ease-out, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.service-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 25px;
+    color: var(--primary);
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.3));
+}
+
+.floating { animation: float 4s ease-in-out infinite; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* --- 8. ANIMATIONS --- */
 .reveal {
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-    will-change: transform, opacity;
+    transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
-
-@keyframes fadeUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
 }
+
+.delay-1.active { transition-delay: 0.2s; }
+.delay-2.active { transition-delay: 0.4s; }
+.delay-3.active { transition-delay: 0.6s; }
