@@ -1,6 +1,6 @@
 /**
  * LoomScape Professional Script
- * Consolidates: Particle Loom, Sliding Pill + Spotlight, Text Scramble, and Mobile Toggle.
+ * Consolidates: Particle Loom, Smooth Flow Scroll, Sliding Pill + Spotlight, Text Scramble, Mobile Toggle, 3D Service Cards, and Scroll Indicator.
  */
 
 // --- 1. THE PARTICLE LOOM CANVAS ---
@@ -74,24 +74,90 @@ function animateLoom() {
 
 // --- 2. INTERACTIVE UI LOGIC ---
 
-// Combined Sliding Background (Pill) & Spotlight Shine Logic
-const initNavAnimations = () => {
-    const navItems = document.querySelectorAll('.nav-item');
-    const slidingBg = document.querySelector('.nav-sliding-bg');
-    const navLinksContainer = document.querySelector('.nav-links');
+// ADDED: Hide Scroll Indicator on Scroll
+const initScrollIndicator = () => {
+    const indicator = document.querySelector('.scroll-indicator');
+    if (!indicator) return;
 
-    if (!slidingBg || !navLinksContainer) return;
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            indicator.style.opacity = '0';
+            indicator.style.pointerEvents = 'none';
+            indicator.style.transition = 'opacity 0.5s ease';
+        } else {
+            indicator.style.opacity = '1';
+        }
+    });
+};
 
-    navItems.forEach(item => {
-        // 1. Sliding Pill Logic
-        item.addEventListener('mouseenter', (e) => {
-            const { offsetLeft, offsetWidth } = e.target;
-            slidingBg.style.left = `${offsetLeft}px`;
-            slidingBg.style.width = `${offsetWidth}px`;
-            slidingBg.style.opacity = '1';
+// Smooth Flow Scroll with Navigation Offset
+const initSmoothScroll = () => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                const navHeight = 100; 
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+};
+
+// Scroll Reveal Observer for Service Cards
+const initScrollReveal = () => {
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+};
+
+// 3D Tilt & Glow Logic for Service Cards
+const initServiceCards = () => {
+    const cards = document.querySelectorAll('.service-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 15; 
+            const rotateY = (centerX - x) / 15;
+
+            requestAnimationFrame(() => {
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
         });
 
-        // 2. Spotlight Shine Logic (Updates CSS variables for the glow)
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+        });
+    });
+};
+
+// Nav Animations (Pill & Spotlight)
+const initNavAnimations = () => {
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
         item.addEventListener('mousemove', (e) => {
             const rect = item.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -101,13 +167,9 @@ const initNavAnimations = () => {
             item.style.setProperty('--y', `${y}px`);
         });
     });
-
-    navLinksContainer.addEventListener('mouseleave', () => {
-        slidingBg.style.opacity = '0';
-    });
 };
 
-// Cursor Glow Movement
+// Global Cursor Glow Movement
 const initCursorGlow = () => {
     const glow = document.querySelector('.cursor-glow');
     if (!glow) return;
@@ -138,42 +200,20 @@ const initTextScramble = () => {
     });
 };
 
-// Mobile Hamburger Toggle
-const initMobileMenu = () => {
-    const hamburger = document.getElementById('mobile-menu');
-    const navMenu = document.querySelector('.nav-menu');
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-    }
-};
-
-// Smooth Scroll for Nav Links
-const initSmoothScroll = () => {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-};
-
 // --- 3. INITIALIZATION ---
-window.addEventListener('resize', () => {
-    setCanvasSize();
-});
-
-// Run everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     initLoom();
     animateLoom();
     initNavAnimations();
     initCursorGlow();
     initTextScramble();
-    initMobileMenu();
+    initServiceCards();
     initSmoothScroll();
+    initScrollReveal();
+    initScrollIndicator(); // Logic for the oval mouse indicator activated
+    
+    window.addEventListener('resize', () => {
+        setCanvasSize();
+        initLoom();
+    });
 });
