@@ -4,24 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LoomScape | Weaving AI Intelligence</title>
-
     <meta name="description" content="LoomScape builds tailored AI ecosystems designed to scale with your ambition.">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Background / Effects (ONLY ONCE) -->
     <div class="cursor-glow" aria-hidden="true"></div>
     <canvas id="loomCanvas" aria-hidden="true"></canvas>
 
-    <!-- Navbar -->
     <header class="nav-container">
         <nav class="navbar" aria-label="Main Navigation">
             <div class="logo">LOOM<span>SCAPE</span></div>
@@ -45,7 +40,6 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <main>
         <section class="hero-wrapper">
             <div class="hero-content">
@@ -69,10 +63,76 @@
                     <button class="btn-secondary">Book a Consultation</button>
                 </div>
             </div>
+
+            <div class="scroll-indicator reveal delay-3">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <span class="scroll-text">Scroll to Explore</span>
+            </div>
+        </section>
+
+        <section id="services" class="services-section">
+            <h2 class="section-title reveal">Core <span class="gradient-text">Capabilities</span></h2>
+            
+            <div class="services-grid">
+                <div class="service-card reveal delay-1" tabindex="0" role="article">
+                    <div class="card-border-glow"></div>
+                    <div class="card-content">
+                        <div class="service-icon floating">🌐</div>
+                        <h3>Web Development</h3>
+                        <p>High-performance, scalable web ecosystems built with modern frameworks for seamless user experiences.</p>
+                    </div>
+                </div>
+
+                <div class="service-card reveal delay-2" tabindex="0" role="article">
+                    <div class="card-border-glow"></div>
+                    <div class="card-content">
+                        <div class="service-icon floating">📱</div>
+                        <h3>App Development</h3>
+                        <p>Native and cross-platform mobile solutions that bring your business logic directly to your users' pockets.</p>
+                    </div>
+                </div>
+
+                <div class="service-card reveal delay-1" tabindex="0" role="article">
+                    <div class="card-border-glow"></div>
+                    <div class="card-content">
+                        <div class="service-icon floating">🎨</div>
+                        <h3>UI/UX Development</h3>
+                        <p>Intuitive interface design focused on human-centric interactions and high-conversion aesthetic flows.</p>
+                    </div>
+                </div>
+
+                <div class="service-card reveal delay-2" tabindex="0" role="article">
+                    <div class="card-border-glow"></div>
+                    <div class="card-content">
+                        <div class="service-icon floating">🧠</div>
+                        <h3>AI Tailored Solutions</h3>
+                        <p>Custom machine learning models designed to solve your specific industry bottlenecks and automate toil.</p>
+                    </div>
+                </div>
+
+                <div class="service-card reveal delay-1" tabindex="0" role="article">
+                    <div class="card-border-glow"></div>
+                    <div class="card-content">
+                        <div class="service-icon floating">🤖</div>
+                        <h3>AI Chatbot Systems</h3>
+                        <p>Advanced conversational agents that handle customer support and lead generation with human-like precision.</p>
+                    </div>
+                </div>
+
+                <div class="service-card reveal delay-2" tabindex="0" role="article">
+                    <div class="card-border-glow"></div>
+                    <div class="card-content">
+                        <div class="service-icon floating">📈</div>
+                        <h3>Strategy & Roadmap</h3>
+                        <p>Comprehensive project planning and AI auditing to ensure every line of code aligns with your long-term scale.</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
-    <!-- JS -->
     <script src="./script.js"></script>
 </body>
 </html>
