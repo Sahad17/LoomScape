@@ -17,11 +17,13 @@
     <div class="cursor-glow" aria-hidden="true"></div>
     <canvas id="loomCanvas" aria-hidden="true"></canvas>
 
-    <header class="nav-container">
+    <header class="nav-container" style="z-index: 9999; position: fixed; width: 100%;">
         <nav class="navbar" aria-label="Main Navigation">
-            <div class="logo">LOOM<span>SCAPE</span></div>
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer; position: relative; z-index: 10000;">
+                LOOM<span>SCAPE</span>
+            </div>
 
-            <div class="hamburger" id="mobile-menu" aria-label="Toggle Menu">
+            <div class="hamburger" id="mobile-menu" aria-label="Toggle Menu" style="position: relative; z-index: 10000;">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -31,12 +33,12 @@
                 <div class="nav-sliding-bg"></div>
                 <ul class="nav-links">
                     <li><a href="#services" class="nav-item">Services</a></li>
-                    <li><a href="#work" class="nav-item">Our Work</a></li>
-                    <li><a href="#process" class="nav-item">Process</a></li>
+                    <li><a href="works.html" class="nav-item">Our Work</a></li>
+                    <li><a href="process.html" class="nav-item" style="position: relative; z-index: 10000;">Process</a></li>
                 </ul>
             </div>
 
-            <button class="cta-bubble">Get Started</button>
+            <button class="cta-bubble" style="position: relative; z-index: 10000;">Get Started</button>
         </nav>
     </header>
 
