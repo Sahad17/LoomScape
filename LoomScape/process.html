@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process | LoomScape</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="process.css">
+</head>
+<body>
+    <canvas id="loomCanvas"></canvas>
+
+    <nav class="nav-container">
+        <div class="navbar">
+            <div class="logo" onclick="window.location.href='index.html'">LOOM<span>SCAPE</span></div>
+            <a href="works.html" class="cta-bubble">View Works</a>
+        </div>
+    </nav>
+
+    <main class="pipeline-section">
+        <div class="bg-watermark" aria-hidden="true">DATAFLOW</div>
+
+        <div class="pipeline-content">
+            <header class="pipeline-header">
+                <span class="category-tag">System Architecture</span>
+                <h1 class="main-title">Neural Pipeline</h1>
+                <p class="subtitle">Our AI solutions integrate seamlessly with your existing stack through a decentralized synchronization layer.</p>
+            </header>
+
+            <div class="visual-engine">
+                <div class="data-badge">DATAFLOW</div>
+                
+                <svg class="neural-paths" viewBox="0 0 800 200" preserveAspectRatio="none">
+    <defs>
+        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:rgba(129, 140, 248, 0);" />
+            <stop offset="50%" style="stop-color:rgba(129, 140, 248, 1);" />
+            <stop offset="100%" style="stop-color:rgba(129, 140, 248, 0);" />
+        </linearGradient>
+    </defs>
+
+    <path d="M400,0 C400,100 150,80 150,150" class="base-line" />
+    <path d="M400,0 L400,150" class="base-line" />
+    <path d="M400,0 C400,100 650,80 650,150" class="base-line" />
+    
+    <path d="M400,0 C400,100 150,80 150,150" class="pulse-line" />
+    <path d="M400,0 L400,150" class="pulse-line" />
+    <path d="M400,0 C400,100 650,80 650,150" class="pulse-line" />
+</svg>
+
+                <div class="process-nodes">
+    <div class="node-box">
+        <div class="node-tag">Stage-01</div> <div class="node-icon">💡</div>
+        <h3>Ideation & Strategy</h3>
+        <p>Sync design tokens and assets directly into your production plans.</p>
+    </div>
+
+    <div class="node-box active">
+        <div class="node-tag">Stage-02</div>
+        <div class="node-icon">🛠️</div>
+        <h3>Design & Prototyping</h3>
+        <p>Automatically update goals building your personalized AI models.</p>
+    </div>
+
+    <div class="node-box">
+        <div class="node-tag">Stage-03</div> <div class="node-icon">💻</div>
+        <h3>Development & Training</h3>
+        <p>Bidirectional sync for documentation and project specs.</p>
+    </div>
+</div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

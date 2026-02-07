@@ -1,0 +1,445 @@
+/* --- 1. SETTINGS & DESIGN TOKENS --- */
+:root {
+    --bg: #050505;
+    --primary: #6366f1;
+    --secondary: #a855f7;
+    --text-main: #ffffff;
+    --text-dim: #94a3b8;
+    --glass: rgba(255, 255, 255, 0.03);
+    --nav-bg: rgba(10, 10, 10, 0.85);
+    --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ADDED FOR SMOOTH FLOW */
+html {
+    scroll-behavior: smooth;
+}
+
+/* --- 2. GLOBAL RESET & NUCLEAR BUTTON FIX --- */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+button, .cta-bubble, .btn-primary, .btn-secondary {
+    all: unset;
+    box-sizing: border-box;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-block;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- 3. BACKGROUND CANVAS & EFFECTS --- */
+#loomCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.cursor-glow {
+    position: fixed;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+}
+
+/* --- 4. THE REFINED NAVIGATION --- */
+.nav-container {
+    position: fixed;
+    top: 1.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 2000;
+    padding: 0 20px;
+}
+
+.navbar {
+    width: 100%;
+    max-width: 1100px;
+    padding: 10px 14px 10px 24px;
+    background: linear-gradient(135deg, rgba(15, 15, 15, 0.9), rgba(25, 25, 25, 0.8));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.logo {
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    color: #fff;
+    cursor: pointer;
+    text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+    animation: logoPulse 4s infinite ease-in-out;
+}
+
+@keyframes logoPulse {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px var(--primary)); }
+    50% { opacity: 0.7; filter: drop-shadow(0 0 10px var(--primary)); }
+}
+
+.logo span { color: var(--primary); }
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.bar {
+    width: 22px;
+    height: 2px;
+    background-color: #fff;
+    transition: var(--transition-smooth);
+}
+
+.nav-menu {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 450px; 
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: center;
+}
+
+.nav-item {
+    position: relative;
+    text-decoration: none;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-weight: 500;
+    z-index: 2;
+    border-radius: 50px;
+    width: 130px; 
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.nav-item:hover { color: #ffffff; }
+
+.cta-bubble {
+    position: relative;
+    background: linear-gradient(90deg, #ffffff, #f1f5f9, #ffffff) !important;
+    background-size: 200% auto !important;
+    color: #000000 !important;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    border: 1px solid rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+}
+
+/* --- 5. HERO SECTION RE-DESIGN --- */
+.hero-wrapper {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0 20px;
+    background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 1000px;
+}
+
+/* --- CYBERNETIC BADGE (Neural Automation) --- */
+.badge {
+    position: relative;
+    display: inline-block;
+    padding: 8px 24px;
+    margin-bottom: 2.5rem;
+    background: rgba(99, 102, 241, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 100px;
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+    overflow: hidden; /* For the scan effect */
+    animation: badgePulse 3s infinite ease-in-out;
+}
+
+@keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.1); border-color: rgba(99, 102, 241, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.3); border-color: rgba(99, 102, 241, 0.6); }
+}
+
+/* Scanning Light Effect */
+.badge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: scanLine 4s infinite linear;
+}
+
+@keyframes scanLine {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+/* THE TITLE DESIGN */
+.title-stack h1 {
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #fff;
+    margin-bottom: 0.2em;
+    text-transform: uppercase;
+}
+
+/* Neural Gradient Effect */
+.gradient-text {
+    background: linear-gradient(90deg, #fff 0%, var(--primary) 50%, var(--secondary) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 5s linear infinite;
+    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.3));
+}
+
+@keyframes shine {
+    to { background-position: 200% center; }
+}
+
+.hero-description {
+    color: var(--text-dim);
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    max-width: 650px;
+    margin: 2rem auto 3rem;
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+/* BUTTONS RE-DESIGN */
+.hero-btns {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 16px 36px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
+    background: #4f46e5;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.03);
+    color: #fff;
+    padding: 16px 36px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* --- 6. SCROLL INDICATOR (LOCKED & CENTERED) --- */
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%); /* Crucial for absolute centering */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 20;
+}
+
+/* Mouse Icon Styling */
+.mouse {
+    width: 24px;
+    height: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    padding-top: 8px;
+}
+
+.wheel {
+    width: 4px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 2px;
+    animation: scrollWheel 2s infinite ease-in-out;
+}
+
+.scroll-text {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--text-dim);
+    font-weight: 600;
+}
+
+/* Reveal merging - ensures centering stays during animation */
+.scroll-indicator.reveal {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+    transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.scroll-indicator.reveal.active {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* --- 7. DYNAMIC SERVICES SECTION --- */
+.services-section {
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 50px;
+    font-weight: 800;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+@media (max-width: 1100px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-menu { display: none; }
+    .hamburger { display: flex; }
+}
+
+@media (max-width: 768px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .scroll-indicator { display: none; }
+}
+
+.service-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 50px 40px;
+    backdrop-filter: blur(15px);
+    transition: transform 0.15s ease-out, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.service-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 25px;
+    color: var(--primary);
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.3));
+}
+
+.floating { animation: float 4s ease-in-out infinite; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* --- 8. ANIMATIONS --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1.active { transition-delay: 0.2s; }
+.delay-2.active { transition-delay: 0.4s; }
+.delay-3.active { transition-delay: 0.6s; }
+
+@keyframes scrollWheel {
+    0% { transform: translateY(0); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translateY(16px); opacity: 0; }
+}

@@ -1,0 +1,178 @@
+/* --- PROCESS PAGE MASTER DESIGN --- */
+
+body {
+    margin: 0;
+    background-color: #020203; 
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+.pipeline-section {
+    position: relative;
+    min-height: 100vh;
+    padding: 120px 5% 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 1. THE BLURRED WATERMARK (From Inspiration) */
+.bg-watermark {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18vw;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.03); 
+    filter: blur(12px); 
+    z-index: 0;
+    user-select: none;
+    white-space: nowrap;
+    letter-spacing: -10px;
+}
+
+/* 2. HEADER: SHIMMER & GRADIENT */
+.pipeline-header {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.category-tag {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 0.75rem;
+    color: #818cf8;
+    font-weight: 600;
+}
+
+.main-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 800;
+    margin: 15px 0;
+    letter-spacing: -3px;
+    background: linear-gradient(to bottom, #ffffff 40%, rgba(255,255,255,0.5));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    max-width: 650px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* 3. THE CONNECTIVE ENGINE (FIXING THE BLACK LINES) */
+.visual-engine {
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.data-badge {
+    width: fit-content;
+    margin: 0 auto 20px;
+    padding: 8px 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    backdrop-filter: blur(10px);
+}
+
+.neural-paths {
+    width: 100%;
+    height: 180px;
+    overflow: visible;
+    filter: drop-shadow(0 0 15px rgba(129, 140, 248, 0.3));
+}
+
+/* CRITICAL: This removes the black "triangles" you saw in your screenshot */
+.base-line {
+    fill: none !important;
+    stroke: rgba(255, 255, 255, 0.05);
+    stroke-width: 1;
+}
+
+/* The glowing "spark" animation */
+.pulse-line {
+    fill: none !important;
+    stroke: url(#lineGrad);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 80, 1000;
+    animation: neuralFlow 4s linear infinite;
+}
+
+@keyframes neuralFlow {
+    0% { stroke-dashoffset: 1100; }
+    100% { stroke-dashoffset: 0; }
+}
+
+/* 4. THE GLASS CARDS */
+.process-nodes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: -20px;
+}
+
+.node-box {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 40px;
+    border-radius: 28px;
+    backdrop-filter: blur(20px);
+    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    position: relative;
+    text-align: left;
+}
+
+.node-box:hover {
+    transform: translateY(-10px);
+    border-color: rgba(129, 140, 248, 0.5);
+    background: rgba(129, 140, 248, 0.05);
+}
+
+.node-box.active {
+    border-color: #818cf8;
+    box-shadow: 0 0 30px rgba(129, 140, 248, 0.1);
+}
+
+.node-icon {
+    font-size: 2.5rem;
+    margin-bottom: 25px;
+    display: block;
+}
+
+.node-tag {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #818cf8;
+    background: rgba(129, 140, 248, 0.1);
+    padding: 4px 12px;
+    border-radius: 100px;
+}
+
+.node-box h3 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+.node-box p {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
